@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Answering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Incrementé el ancho máximo */
+            width: 100%;
+            border-top: 5px solid #003366; /* Azul de UNL */
+            height: auto; /* Permite mayor altura si se necesita */
+        }
+
+        h1 {
+            color: #003366; /* Azul UNL */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #cc9900; /* Dorado UNL */
+        }
+
+        textarea, input[type="text"], input[type="file"] {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical; /* Permitir que el usuario expanda el área verticalmente */
+            min-height: 150px; /* Incremento de la altura mínima inicial */
+            max-height: 500px; /* Limitar altura máxima para mantener el diseño */
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #003366; /* Azul UNL */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #00264d;
+        }
+
+        .result {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 5px solid #cc9900; /* Dorado UNL */
+        }
+
+        .result h2 {
+            margin-top: 0;
+        }
+
+        .result p {
+            font-size: 18px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn-extract {
+            background-color: #cc9900; /* Dorado UNL */
+            margin-top: 10px;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-extract:hover {
+            background-color: #b38f00;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Modelo Question Answering QA</h1>
+        <form method="post" enctype="multipart/form-data">
+            <label for="context">Contexto:</label>
+            <!-- El área de texto ahora es más grande y redimensionable -->
+            <textarea id="context" name="context" rows="8" cols="50" placeholder="Introduce el contexto aquí...">{{ context }}</textarea><br>
+            
+            <label for="question">Pregunta:</label>
+            <input type="text" id="question" name="question" placeholder="Introduce tu pregunta aquí..."><br><br>
+
+            <label for="pdf">Subir archivo PDF:</label>
+            <input type="file" id="pdf" name="pdf"><br><br>
+
+            <!-- Botón para extraer contenido del PDF -->
+            <input class="btn-extract" type="submit" name="action" value="Extraer contenido del PDF">
+            <br><br>
+            
+            <!-- Botón para obtener la respuesta después de extraer el contenido -->
+            <input type="submit" name="action" value="Obtener respuesta">
+        </form>
+
+        {% if answer %}
+        <div class="result">
+            <h2>Respuesta:</h2>
+            <p>{{ answer }}</p>
+            <p><strong>Confianza:</strong> {{ score }}</p>
+        </div>
+        {% endif %}
+        
+        <div class="footer">
+            <p>Desarrollado por Edy Jimenez, Carrera de Computación - Universidad Nacional de Loja</p>
+        </div>
+    </div>
+</body>
+</html>
